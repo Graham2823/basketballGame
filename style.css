@@ -1,0 +1,58 @@
+body{
+    text-align: center;
+    background-image: url("court.png");
+    background-size: cover;
+}
+
+.score{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.score h2{
+    display: inline;
+    padding: 20px;
+    border: 2px solid black;
+}
+
+.score h3{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid black;
+}
+
+.buttons button{
+    height: 50px;
+    width: 150px;
+    margin: 50px 20px;
+}
+
+.buttons button:hover{
+    background-color: rgba(200,200,200);
+}
+
+.players img{
+    height: 350px;
+    margin-top: 20px;
+}
+
+.gameTracker{
+    position: absolute;
+    right: 40px;
+    top: 20px;
+}
+
+.gameTracker h2{
+    border: 2px solid black;
+    margin: 0px;
+    padding: 20px;
+}
+
+.startScreen{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
