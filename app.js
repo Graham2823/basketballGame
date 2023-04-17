@@ -21,9 +21,51 @@ class Game{
         this.playerOneWins = 0;
         this.playerTwoWins = 0;
         scoreboardDiv.append(this.scoreboard)
+        teamOneTracker.innerHTML = this.playerOneWins
+        teamTwoTracker.innerHTML = this.playerTwoWins
+        buttonDiv.append(this.shootThree)
+        buttonDiv.append(this.shootTwo)
         this.shootTwo.addEventListener("click", ()=>{
             this.scoreboard.innerHTML = ""
-            this.chance = Math.round(Math.random())
+            this.playerShootTwo()
+            if(this.teamOnePoints < 11){
+                this.opponentTurn()
+            }
+            if(this.teamOnePoints < 11 && this.teamTwoPoints < 11){
+                this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3>`
+            }        
+            scoreboardDiv.append(this.scoreboard)
+    })
+    this.shootThree.addEventListener("click", ()=>{
+        this.scoreboard.innerHTML = ""
+        this.PlayerShootThree()
+        if(this.teamOnePoints < 11){
+            this.opponentTurn()
+        }
+        if(this.teamOnePoints < 11 && this.teamTwoPoints < 11){
+            this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3>`
+        }
+        scoreboardDiv.append(this.scoreboard)
+    })
+}
+    newGame(){
+        buttonDiv.innerHTML = ""
+        this.newButton = document.createElement("button")
+        this.newButton.innerText = "New Game"
+        buttonDiv.append(this.newButton)
+        this.newButton.addEventListener("click", ()=>{
+            this.scoreboard.innerHTML = ""
+            buttonDiv.innerHTML = ""
+            buttonDiv.append(this.shootThree)
+            buttonDiv.append(this.shootTwo)
+            this.scoreboard.innerHTML = "<h2>Player One: 0</h2><h2>The Computer: 0</h2><h3>Possession: Player One</h3>"
+            this.teamOnePoints = 0;
+            this.teamTwoPoints = 0;
+            this.possession = "Team One"
+        }) 
+    }
+    playerShootTwo(){
+        this.chance = Math.round(Math.random())
             if(this.chance === 1 && this.possession === "Team One"){
                 alert("Player One scored 2 points!")
                 this.teamOnePoints += 2
@@ -32,49 +74,10 @@ class Game{
                 alert("Player One missed the 2 point shot, and the Computer got the rebound!")
                 this.possession = "Team Two"
             } 
-            if(this.teamOnePoints >= 11){
-                alert("Player One Wins!!!")
-                this.scoreboard.innerHTML =`<h2>Player One wins ${this.teamOnePoints}-${this.teamTwoPoints}</h2>`
-                this.playerOneWins += 1
-                teamOneTracker.innerHTML = this.playerOneWins
-                this.newGame()
-                return
-            } 
-            this.opponentShot = Math.round(Math.random()*2)
-            if(this.opponentShot === 2){
-                this.chance = Math.round(Math.random()*2)
-                if(this.chance === 2 && this.possession === "Team Two"){
-                    alert("The Computer scored 3 points!")
-                    this.teamTwoPoints += 3
-                    this.possession = "Team One"
-                } else if(this.chance !== 2 && this.possession === "Team Two"){
-                alert("The Computer missed the 3 point shot, and Player One got the rebound!")
-                this.possession = "Team One"
-            } 
-        } else{
-            this.chance = Math.round(Math.random())
-            if(this.chance === 1 && this.possession === "Team Two"){
-                alert("The Computer scored 2 points!")
-                this.teamTwoPoints += 2
-                this.possession = "Team One"
-            } else if(this.chance !== 1 && this.possession === "Team Two"){
-                alert("The Computer missed the 2 point shot, and Player One got the rebound!")
-                this.possession = "Team One"
-            } 
-        }
-        if(this.teamTwoPoints >= 11){
-            alert("Sorry, The Computer Wins!!!")
-            this.scoreboard.innerHTML =`<h2>The Computer wins ${this.teamTwoPoints}-${this.teamOnePoints}</h2>`
-            this.playerTwoWins += 1
-            teamTwoTracker.innerHTML = this.playerTwoWins
-            this.newGame()
+            this.checkForPlayerWin()
             return
-        }
-        this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3>`
-        scoreboardDiv.append(this.scoreboard)
-    })
-    this.shootThree.addEventListener("click", ()=>{
-        this.scoreboard.innerHTML = ""
+    }
+    PlayerShootThree(){
         this.chance = Math.round(Math.random()*2)
         if(this.chance === 2 && this.possession === "Team One"){
             alert("Player One scored 3 points!")
@@ -84,14 +87,9 @@ class Game{
             alert("Player One missed the 3 point shot, and The Computer got the rebound!")
             this.possession = "Team Two"
         } 
-        if(this.teamOnePoints >= 11){
-            alert("Player One Wins!!!")
-            this.scoreboard.innerHTML =`<h2>Player One wins ${this.teamOnePoints}-${this.teamTwoPoints}</h2>`
-            this.playerOneWins += 1
-            teamOneTracker.innerHTML = this.playerOneWins
-            this.newGame()
-            return
-        } 
+        this.checkForPlayerWin()
+    }
+    opponentTurn(){
         this.opponentShot = Math.round(Math.random()*2)
         if(this.opponentShot === 2){
             this.chance = Math.round(Math.random()*2)
@@ -114,37 +112,25 @@ class Game{
                 this.possession = "Team One"
             } 
         }
+        this.checkforOpponentWin()
+    }
+    checkforOpponentWin(){
         if(this.teamTwoPoints >= 11){
             alert("Sorry, The Computer Wins!!!")
             this.scoreboard.innerHTML =`<h2>The Computer wins ${this.teamTwoPoints}-${this.teamOnePoints}</h2>`
             this.playerTwoWins += 1
             teamTwoTracker.innerHTML = this.playerTwoWins
             this.newGame()
-            return
         }
-        this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3>`
-        scoreboardDiv.append(this.scoreboard)
-    })
-    teamOneTracker.innerHTML = this.playerOneWins
-    teamTwoTracker.innerHTML = this.playerTwoWins
-    buttonDiv.append(this.shootThree)
-    buttonDiv.append(this.shootTwo)
-}
-    newGame(){
-        buttonDiv.innerHTML = ""
-        this.newButton = document.createElement("button")
-        this.newButton.innerText = "New Game"
-        buttonDiv.append(this.newButton)
-        this.newButton.addEventListener("click", ()=>{
-            this.scoreboard.innerHTML = ""
-            buttonDiv.innerHTML = ""
-            buttonDiv.append(this.shootThree)
-            buttonDiv.append(this.shootTwo)
-            this.scoreboard.innerHTML = "<h2>Player One: 0</h2><h2>The Computer: 0</h2><h3>Possession: Player One</h3>"
-            this.teamOnePoints = 0;
-            this.teamTwoPoints = 0;
-            this.possession = "Team One"
-        }) 
+    }
+    checkForPlayerWin(){
+        if(this.teamOnePoints >= 11){
+            alert("Player One Wins!!!")
+            this.scoreboard.innerHTML =`<h2>Player One wins ${this.teamOnePoints}-${this.teamTwoPoints}</h2>`
+            this.playerOneWins += 1
+            teamOneTracker.innerHTML = this.playerOneWins
+            this.newGame()
+        } 
     }
 }
 
@@ -163,31 +149,3 @@ const startingScreen =  function(){
 }
 
 startingScreen()
-
-
-
-// this.pass.addEventListener("click", ()=>{
-    //     this.scoreboard.innerHTML = ""
-    //     this.chance = Math.round(Math.random()*3)
-    //     if(this.chance === 3 && this.possession == "Team One"){
-        //         alert("Team two stole the pass!")
-        //         this.possession = "Team Two"
-        //     } else if(this.chance != 3 && this.possession == "Team One"){
-            //         alert("Team one Successfully passed the ball!")
-            //     } 
-            //     this.chance = Math.round(Math.random()*3)
-            //     if(this.chance === 3 && this.possession == "Team Two"){
-                //         alert("Team one stole the pass!")
-                //         this.possession = "Team One"
-                //     }else if(this.chance != 3 && this.possession == "Team Two"){
-                    //         alert("Team Two Successfully passed the ball!")
-                    //     }
-                    //     this.scoreboard.innerHTML = `<h2>Team one: ${this.teamOnePoints}</h2><h2>Team Two: ${this.teamTwoPoints}</h2><h2>Possession: ${this.possession}</h2>`
-                    //     document.body.append(this.scoreboard)
-                    //     if(this.teamOnePoints >= 11){
-                        //         alert("Team One Wins")
-                        //     } 
-                        //     if(this.teamTwoPoints >= 11){
-                            //         alert("Team Two Wins")
-                            //     }
-                            // })
