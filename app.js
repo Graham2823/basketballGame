@@ -12,8 +12,8 @@ class Game {
     this.shootThree = document.createElement("button");
     this.pass = document.createElement("button");
     this.shootTwo = document.createElement("button");
-    this.shootTwo.innerText = `Shoot Three: 30%`;
-    this.shootThree.innerText = `Shoot Two: 20%`;
+    this.shootTwo.innerText = `Shoot Two: 30%`;
+    this.shootThree.innerText = `Shoot Three: 20%`;
     this.pass.innerText = "Pass";
     this.scoreboard = document.createElement("div");
     this.scoreboard.classList.add("scoreboard");
@@ -54,8 +54,8 @@ class Game {
       if (this.teamOnePoints < 11 && this.teamTwoPoints < 11) {
         this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3><h3>Number of Passes: ${this.passes}</h3>`;
       }
-      this.shootTwo.innerText = `Shoot Three: 30%`;
-      this.shootThree.innerText = `Shoot Two: 20%`;
+      this.shootTwo.innerText = `Shoot Two: 30%`;
+      this.shootThree.innerText = `Shoot Three: 20%`;
       this.pass.innerText = "Pass";
       scoreboardDiv.append(this.scoreboard);
     });
@@ -68,8 +68,8 @@ class Game {
       if (this.teamOnePoints < 11 && this.teamTwoPoints < 11) {
         this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3><h3>Number of Passes: ${this.passes}</h3>`;
       }
-      this.shootTwo.innerText = `Shoot Three: 30%`;
-      this.shootThree.innerText = `Shoot Two: 20%`;
+      this.shootTwo.innerText = `Shoot Two: 30%`;
+      this.shootThree.innerText = `Shoot Three: 20%`;
       this.pass.innerText = "Pass";
       scoreboardDiv.append(this.scoreboard);
     });
@@ -91,8 +91,8 @@ class Game {
       this.teamOnePoints = 0;
       this.teamTwoPoints = 0;
       this.possession = "Team One";
-      this.shootTwo.innerText = `Shoot Three: 30%`;
-      this.shootThree.innerText = `Shoot Two: 20%`;
+      this.shootTwo.innerText = `Shoot Two: 30%`;
+      this.shootThree.innerText = `Shoot Three: 20%`;
       this.pass.innerText = "Pass";
     });
   }
@@ -265,8 +265,8 @@ class Game {
         this.possession = "Team One";
       }
     }
-    this.shootTwo.innerText = `Shoot Three: 30%`;
-    this.shootThree.innerText = `Shoot Two: 20%`;
+    this.shootTwo.innerText = `Shoot Two: 30%`;
+    this.shootThree.innerText = `Shoot Three: 20%`;
     this.pass.innerText = `Pass`
     this.checkforOpponentWin();
   }
