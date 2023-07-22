@@ -1,77 +1,228 @@
-body{
+body {
     text-align: center;
     background-image: url("court.png");
     background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
 }
 
-.score{
-    margin-top: 100px;
+/* Rest of your CSS code including media queries */
+
+
+/* Common styles for both larger and smaller screens */
+.scoreAndTracker {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.score h2{
-    display: inline;
+.score {
+    margin-top: 100px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center;
+    height: 10vh;
+    width: 100vw;
+}
+
+.score h2 {
+    display: inline-block; /* Display as block to limit width */
     padding: 20px;
+    font-size: 1.5vw;
     border: 1px solid black;
 }
 
-.score h3:first-of-type{
+.score h3:first-of-type {
     padding-top: 10px;
     padding-bottom: 0px;
-    margin-top: 20px;
     margin-bottom: 0px;
+    margin-top: -20px;
     border: 2px solid black;
 }
-.score h3{
+
+.score h3 {
     margin-top: 0px;
     border: 2px solid black;
 }
 
-button{
-    width: 200px;
-    height: 70px;
+.scoreboard{
+    border: 1px solid black;
+    width: 400px;
+    background-color: white;
 }
 
-.buttons{
-    margin: 20px;
+.scoreboard td{
+    border: 1px solid black;
+}
+/* ... Your existing CSS code ... */
+
+/* Styles for the game tracker */
+.gameTracker {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 150px;
 }
 
-.buttons button{
-    height: 50px;
-    width: 200px;
-    margin-left: 20px;
+.gameTracker h2 {
+    width: 100%;
+    border: 2px solid black;
+    margin: 0;
+    padding: 20px;
+    font-size: 1.5vw;
 }
 
-.buttons .newButton{
-    margin: 50px 0px;
+.players {
+    display: flex; /* Display images side by side */
+    justify-content: center; /* Center images horizontally */
+    align-items: flex-start; /* Align images to the top of the container */
 }
 
-.buttons button:hover{
-    background-color: rgba(200,200,200);
-}
-
-.players img{
+.players img {
     height: 350px;
     margin-top: 20px;
 }
 
-.gameTracker{
-    position: absolute;
-    right: 40px;
-    top: 20px;
-    margin-bottom: 30px;
-}
-
-.gameTracker h2{
-    border: 2px solid black;
-    margin: 0px;
-    padding: 20px;
-}
-
 .startScreen{
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%;
+    margin: auto 10px;
+    text-align: center;
 }
 
+/* Adjust the game tracker position for smaller screens */
+@media screen and (max-width: 767px) {
+    body{
+        height: 100vh;
+    }
+    .gameTracker {
+        position: static; /* or 'relative' based on your preference */
+        margin-top: 20px; /* Adjust this margin as needed */
+        align-items: center; /* Center the scores horizontally on smaller screens */
+        width: 75x;
+    }
+
+    .scoreAndTracker {
+        flex-direction: column; /* Stack the content vertically on smaller screens */
+        align-items: center; /* Center the content horizontally */
+    }
+
+    .score h2 {
+        max-width: 80%; /* Limit the width of h2 on smaller screens */
+    }
+
+    .gameTracker h2 {
+        font-size: 3vw; /* Adjust the font size for better visibility on smaller screens */
+    }
+
+    .score h2 {
+        margin: 10px; /* Add some spacing between the h2 elements on smaller screens */
+        border: 1px solid black;
+    }
+    .score {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center;
+    }
+
+    .buttons {
+        margin: 10px;
+    }
+
+    .buttons button {
+        height: 40px;
+        width: 160px;
+        margin: 10px;
+    }
+
+    .buttons .newButton {
+        margin: 30px 0px;
+    }
+
+    .players img {
+        height: 250px;
+        margin-top: 10px;
+    }
+    .scoreboard {
+        margin: 20px auto; /* Center the .scoreboard element horizontally on small screens */
+        max-width: 400px; /* Limit the maximum width of the scoreboard table */
+        text-align: center;
+        background-color: white;
+    }
+}
+
+/* ... Your existing CSS code ... */
+
+
+
+/* Styles for larger screens */
+@media screen and (min-width: 768px) {
+    body{
+        height: 100vh;
+    }
+    .score {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center;
+    }
+
+    .buttons {
+        margin: 20px;
+    }
+
+    .buttons button {
+        height: 50px;
+        width: 200px;
+        margin-left: 20px;
+    }
+
+    .buttons .newButton {
+        margin: 50px 0px;
+    }
+    
+    .scoreboard {
+        margin: 20px auto; /* Center the .scoreboard element horizontally on larger screens */
+        max-width: 400px; /* Limit the maximum width of the scoreboard table */
+        text-align: center;
+        background-color: white;
+    }
+}
+
+/* Styles for smaller screens */
+
+
+@media screen and (max-width: 400px) {
+    body{
+        height: 100vh;
+    }
+    .score {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center;
+    }
+
+    .score h2 {
+        font-size: 4vw; /* Increase the font size on extremely small screens */
+        padding: 10px; /* Adjust the padding for better fit */
+        border: none; /* Remove the borders on extremely small screens */
+    }
+    .players img {
+        height: 150px; /* Reduce the height further on extremely small screens */
+        margin-top: 5px;
+    }
+    .gameTracker{
+        width: 75px;
+    }
+    .scoreboard {
+        margin: 20px auto; /* Center the .scoreboard element horizontally on smaller screens */
+        max-width: 400px; /* Limit the maximum width of the scoreboard table */
+        text-align: center;
+        background-color: white;
+    }
+}

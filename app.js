@@ -2,6 +2,7 @@ let scoreboardDiv = document.querySelector(".score");
 let buttonDiv = document.querySelector(".buttons");
 let teamOneTracker = document.querySelector(".teamOneTracker");
 let teamTwoTracker = document.querySelector(".teamTwoTracker");
+let gameTracker = document.querySelector(".gameTracker");
 let players = document.querySelector(".players")
 
 class Game {
@@ -15,10 +16,10 @@ class Game {
     this.shootTwo.innerText = `Shoot Two: 30%`;
     this.shootThree.innerText = `Shoot Three: 20%`;
     this.pass.innerText = "Pass";
-    this.scoreboard = document.createElement("div");
+    this.scoreboard = document.createElement("table");
     this.scoreboard.classList.add("scoreboard");
     this.scoreboard.innerHTML =
-      "<h2>Team One: 0</h2><h2>Computer: 0</h2><h3>Possession: Team One</h3><h3>Number of Passes: 0</h3>";
+      "<thead><td>Team One: 0</td><td>Computer: 0</td></thead><tbody><tr><td>Possession: Team One</td><td>Number of Passes: 0</tr></tbody>";
     this.playerOneWins = 0;
     this.playerTwoWins = 0;
     this.passes = 0;
@@ -30,18 +31,18 @@ class Game {
     buttonDiv.append(this.pass);
     this.pass.addEventListener("click", () => {
       this.scoreboard.innerHTML = "";
-      this.chance = Math.round(Math.random() * 2);
-      if (this.chance === 2 && this.possession == "Team One") {
+      this.chance = Math.round(Math.random() * 4);
+      if (this.chance === 4 && this.possession == "Team One") {
         alert("The Computer stole the pass!");
         this.possession = "Team Two";
         this.passes = 0;
         this.opponentTurn();
-      } else if (this.chance != 2 && this.possession == "Team One") {
+      } else if (this.chance != 4 && this.possession == "Team One") {
         alert("Player One Successfully passed the ball!");
         this.passes += 1;
       }
       if (this.teamOnePoints < 11 && this.teamTwoPoints < 11) {
-        this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3><h3>Number of Passes: ${this.passes}</h3>`;
+        this.scoreboard.innerHTML = `<thead><td>Team One: ${this.teamOnePoints}</td><td>Computer: ${this.teamTwoPoints}</td></thead><tbody><tr><td>Possession:${this.possession}</td><td>Number of Passes: ${this.passes}</tr></tbody>`;
       }
       this.setButtons(this.passes);
     });
@@ -52,7 +53,7 @@ class Game {
         this.opponentTurn();
       }
       if (this.teamOnePoints < 11 && this.teamTwoPoints < 11) {
-        this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3><h3>Number of Passes: ${this.passes}</h3>`;
+        this.scoreboard.innerHTML = `<thead><td>Team One: ${this.teamOnePoints}</td><td>Computer: ${this.teamTwoPoints}</td></thead><tbody><tr><td>Possession:${this.possession}</td><td>Number of Passes: ${this.passes}</tr></tbody>`;
       }
       this.shootTwo.innerText = `Shoot Two: 30%`;
       this.shootThree.innerText = `Shoot Three: 20%`;
@@ -66,7 +67,7 @@ class Game {
         this.opponentTurn();
       }
       if (this.teamOnePoints < 11 && this.teamTwoPoints < 11) {
-        this.scoreboard.innerHTML = `<h2>Player One: ${this.teamOnePoints}</h2><h2>The Computer: ${this.teamTwoPoints}</h2><h3>Possession: ${this.possession}</h3><h3>Number of Passes: ${this.passes}</h3>`;
+        this.scoreboard.innerHTML = `<thead><td>Team One: ${this.teamOnePoints}</td><td>Computer: ${this.teamTwoPoints}</td></thead><tbody><tr><td>Possession:${this.possession}</td><td>Number of Passes: ${this.passes}</tr></tbody>`;
       }
       this.shootTwo.innerText = `Shoot Two: 30%`;
       this.shootThree.innerText = `Shoot Three: 20%`;
@@ -87,7 +88,7 @@ class Game {
       buttonDiv.append(this.shootTwo);
       buttonDiv.append(this.pass)
       this.scoreboard.innerHTML =
-        "<h2>Player One: 0</h2><h2>The Computer: 0</h2><h3>Possession: Player One</h3><h3>Number of Passes: 0</h3>";
+        "<thead><td>Team One: 0</td><td>Computer: 0</td></thead><tbody><tr><td>Possession: Team One</td><td>Number of Passes: 0</tr></tbody>";
       this.teamOnePoints = 0;
       this.teamTwoPoints = 0;
       this.possession = "Team One";
@@ -275,7 +276,8 @@ class Game {
       alert("Sorry, The Computer Wins!!!");
       this.scoreboard.innerHTML = `<h2>The Computer wins ${this.teamTwoPoints}-${this.teamOnePoints}</h2>`;
       this.playerTwoWins += 1;
-      teamTwoTracker.innerHTML = this.playerTwoWins;
+      gameTracker.innerHTML = `<h2>Player One Wins:<span class="teamOneTracker">${this.playerOneWins} </span></h2>
+      <h2>Computer Wins: <span class="teamTwoTracker">${this.playerTwoWins}</span></h2>`
       this.newGame();
     }
   }
@@ -284,7 +286,8 @@ class Game {
       alert("Player One Wins!!!");
       this.scoreboard.innerHTML = `<h2>Player One wins ${this.teamOnePoints}-${this.teamTwoPoints}</h2>`;
       this.playerOneWins += 1;
-      teamOneTracker.innerHTML = this.playerOneWins;
+      gameTracker.innerHTML = `<h2>Player One Wins:<span class="teamOneTracker">${this.playerOneWins} </span></h2>
+      <h2>Computer Wins: <span class="teamTwoTracker">${this.playerTwoWins}</span></h2>`
       this.newGame();
     }
   }
@@ -320,6 +323,7 @@ const startingScreen = function () {
   container.innerHTML =
     "<h1>Welcome</h1><h2>Play against the computer in a basketball game</h2><h3>Rules:  Click the buttons to chose to shoot a 2 point shot, a 3 point shot, or chose to pass. For every pass you make, a boost will be applied to the next shot you take. The more passes you make, a bigger boost will be applied. The biggest boost is applied if you make 4 successful passes. Any passes after that will have the same boost. Be careful though, the computer can steal your pass! After you take a shot, or have a pass stolen, the computer will get the ball and take their shot. First team to 11 points wins!</h3>";
   let startButton = document.createElement("button");
+  gameTracker.innerHTML = ""
   startButton.innerText = "Start Game";
   container.append(startButton);
   startButton.addEventListener("click", () => {
